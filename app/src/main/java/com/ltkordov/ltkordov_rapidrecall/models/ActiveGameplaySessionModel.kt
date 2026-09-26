@@ -4,7 +4,7 @@ import com.ltkordov.ltkordov_rapidrecall.`mvc-abstracts`.TModel
 import kotlin.random.Random
 
 fun randDigit(): String {
-    return Random.nextInt(0, 9).toString()
+    return Random.nextInt(0, 10).toString()
 }
 
 class ActiveGameplaySessionModel(private val sequenceLength: Int): TModel<ActiveGameplaySessionModel>() {
@@ -27,7 +27,7 @@ class ActiveGameplaySessionModel(private val sequenceLength: Int): TModel<Active
     }
 
     fun showChar(charIndex: Int) {
-        if (charIndex in 0..sequenceLength) {
+        if (charIndex in 0..<sequenceLength) {
             currentChar = sequence[charIndex]
             notifyViews(this)
         }
@@ -46,9 +46,9 @@ class ActiveGameplaySessionModel(private val sequenceLength: Int): TModel<Active
     // I toyed with putting this logic in the controller, because you could argue that "does guess == correct" is logic that the model doesn't necessarily care about
     // But then I decided that that logic is CORE to the active gameplay session, the session model would be useless if we didn't know what was correct and what wasn't, the same way any other piece of hardcoded info is given to any other model
     fun recordGuess(guess: String) {
-        this.isCorrect = guess == sequence;
+        this.isCorrect = guess.trim() == sequence;
         this.gamePhase = "Result"
-        this.userGuess = guess
+        this.userGuess = guess.trim()
         notifyViews(this)
     }
 
