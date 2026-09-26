@@ -46,9 +46,9 @@ class ActiveGameplaySessionModel(private val sequenceLength: Int): TModel<Active
     // I toyed with putting this logic in the controller, because you could argue that "does guess == correct" is logic that the model doesn't necessarily care about
     // But then I decided that that logic is CORE to the active gameplay session, the session model would be useless if we didn't know what was correct and what wasn't, the same way any other piece of hardcoded info is given to any other model
     fun recordGuess(guess: String) {
-        this.isCorrect = guess.trim() == sequence;
+        this.isCorrect = guess == sequence;
         this.gamePhase = "Result"
-        this.userGuess = guess.trim()
+        this.userGuess = guess
         notifyViews(this)
     }
 

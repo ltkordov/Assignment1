@@ -48,6 +48,9 @@ fun AppSetup(modifier: Modifier = Modifier) {
         onGoGameplay = {
             routerController.navigateToGameplay.execute()
         },
+        onGoHistory = {
+            routerController.navigateToHistory.execute()
+        },
         modifier
     )
 }

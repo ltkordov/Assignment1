@@ -1,5 +1,6 @@
 package com.ltkordov.ltkordov_rapidrecall.`mvc-abstracts`
 
+// Implemented as described in "MVC and Android" slides, slide 40
 abstract class TModel<M> {
     private val views = mutableListOf<TView<M>>()
 

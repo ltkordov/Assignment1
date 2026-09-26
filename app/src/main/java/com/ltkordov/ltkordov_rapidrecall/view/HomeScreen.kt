@@ -18,7 +18,7 @@ import com.ltkordov.ltkordov_rapidrecall.controllers.GameSetupController
 import com.ltkordov.ltkordov_rapidrecall.models.GameParametersModel
 
 @Composable
-fun HomeScreen(gameParamsModel: GameParametersModel, gameSetupController: GameSetupController, onStart: () -> Unit, modifier: Modifier = Modifier) {
+fun HomeScreen(gameParamsModel: GameParametersModel, gameSetupController: GameSetupController, onStart: () -> Unit, onGoHistory: () -> Unit, modifier: Modifier = Modifier) {
     val gameSetupView = remember { GameSetup() }
     LaunchedEffect(Unit) {
         gameParamsModel.addView(gameSetupView)
@@ -52,6 +52,9 @@ fun HomeScreen(gameParamsModel: GameParametersModel, gameSetupController: GameSe
         Spacer(modifier = Modifier.height(16.dp))
         Button(onClick = { onStart() }) {
             Text("Start!")
+        }
+        Button(onClick = { onGoHistory() }) {
+            Text("View History")
         }
     }
 }
