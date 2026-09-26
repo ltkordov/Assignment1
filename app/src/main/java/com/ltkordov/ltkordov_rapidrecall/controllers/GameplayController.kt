@@ -13,8 +13,8 @@ class GameplayController(
     private val model: ActiveGameplaySessionModel,
     private val historyModel: HistoryModel
 ) {
-    suspend fun startSequence() { // I think suspend is like async in TS, android studio intellisense told me to do this
-        model.generateString()
+    suspend fun startSequence(sequenceLength: Int) { // I think suspend is like async in TS, android studio intellisense told me to do this
+        model.setupRound(sequenceLength)
         for (i in 0..<model.length) {
             model.showChar(i)
             delay(500.milliseconds)

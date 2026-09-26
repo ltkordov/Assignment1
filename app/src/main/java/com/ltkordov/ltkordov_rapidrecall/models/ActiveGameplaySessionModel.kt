@@ -7,8 +7,9 @@ fun randDigit(): String {
     return Random.nextInt(0, 10).toString()
 }
 
-class ActiveGameplaySessionModel(private val sequenceLength: Int): TModel<ActiveGameplaySessionModel>() {
-    val length: Int = sequenceLength
+class ActiveGameplaySessionModel(): TModel<ActiveGameplaySessionModel>() {
+    var length: Int = 0
+        private set
 
     var gamePhase: String = "Showing" // Starts as "Showing", then "Guessing", then "Result"
         private set
@@ -27,13 +28,18 @@ class ActiveGameplaySessionModel(private val sequenceLength: Int): TModel<Active
     }
 
     fun showChar(charIndex: Int) {
-        if (charIndex in 0..<sequenceLength) {
+        if (charIndex in 0..<length) {
             currentChar = sequence[charIndex]
             notifyViews(this)
         }
     }
-    fun generateString() {
+    fun setupRound(sequenceLength: Int) {
+        length = sequenceLength
         sequence = ""
+        currentChar = null
+        isCorrect = null
+        gamePhase = "Showing"
+        userGuess = null
         for (i in 1..sequenceLength) {
             sequence += randDigit()
         }
