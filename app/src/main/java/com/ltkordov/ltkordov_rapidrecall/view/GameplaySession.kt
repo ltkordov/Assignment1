@@ -25,43 +25,55 @@ import com.ltkordov.ltkordov_rapidrecall.models.GameParametersModel
 import com.ltkordov.ltkordov_rapidrecall.`mvc-abstracts`.TView
 
 class GameplaySession: TView<ActiveGameplaySessionModel> {
-    var gamePhase: String = ""
+    var gamePhase by mutableStateOf("")
         private set
-    var currentChar: Char? = null
+    var currentChar by mutableStateOf<Char?>(null)
         private set
-    var isCorrect: Boolean? = null
+    var isCorrect by mutableStateOf<Boolean?>(null)
+        private set
+    var guess by mutableStateOf<String?>(null)
+        private set
+    var sequence by mutableStateOf<String?>(null)
         private set
 
     override fun update(model: ActiveGameplaySessionModel) {
         gamePhase = model.gamePhase
         currentChar = model.currentChar
         isCorrect = model.isCorrect
+        guess = model.userGuess
+        sequence = model.sequence
     }
 
 
+
     @Composable
-    fun render(onGoBack: () -> Unit, onSubmitGuess: () -> Unit, modifier: Modifier = Modifier) {
+    fun Render(onGoBack: () -> Unit, onSubmitGuess: (guess: String) -> Unit, modifier: Modifier = Modifier) {
+        // How the user inputs their guess is NOT the concern of the model or controller
+        // That is very view-specific behaviour.
+        // That's why we have this text input value as a piece of state in the View instead of in something else
+        var textInputGuessValue by remember { mutableStateOf("") }
+
         Column(modifier = modifier.fillMaxSize(), verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
-            if (gamePhase == "Running") {
+            if (gamePhase == "Showing") {
                 if (currentChar != null) {
                     Text(text=currentChar.toString(), fontSize=48.sp)
                 }
             }
-            if (gamePhase == "Guess") {
+            if (gamePhase == "Guessing") {
                 Text(text="Guess", fontSize=48.sp)
-                OutlinedTextField(value=guess, onValueChange = { guess = it }, maxLines = 1)
-                Button(onClick={ onSubmitGuess() }) {
+                OutlinedTextField(value=textInputGuessValue, onValueChange = { textInputGuessValue = it }, maxLines = 1)
+                Button(onClick={ onSubmitGuess(textInputGuessValue) }) {
                     Text("Submit Guess")
                 }
             }
             if (gamePhase == "Result") {
-                Text(text=(if (result!!.correct) "Correct!" else "Incorrect!"))
+                Text(text=(if (isCorrect == true) "Correct!" else "Incorrect!"))
                 Text("Your Guess:")
-                Text(guess)
+                Text(guess!!)
                 Spacer(modifier = Modifier.height(8.dp))
                 Text("Correct Sequence:")
-                Text(result!!.sequence)
-                Button(onClick={onBack()}) {
+                Text(sequence!!)
+                Button(onClick={onGoBack()}) {
                     Text(("Go Back"))
                 }
             }

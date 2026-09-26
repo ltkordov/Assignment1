@@ -34,7 +34,7 @@ class GameSetup: TView<GameParametersModel> {
     }
 
     @Composable
-    fun render(onIncrement: () -> Unit, onDecrement: () -> Unit, modifier: Modifier = Modifier) {
+    fun Render(onIncrement: () -> Unit, onDecrement: () -> Unit, modifier: Modifier = Modifier) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(10.dp)

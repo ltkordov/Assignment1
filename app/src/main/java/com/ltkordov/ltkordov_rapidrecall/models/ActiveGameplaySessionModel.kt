@@ -1,7 +1,11 @@
 package com.ltkordov.ltkordov_rapidrecall.models
 
 import com.ltkordov.ltkordov_rapidrecall.`mvc-abstracts`.TModel
-import com.ltkordov.ltkordov_rapidrecall.randDigit
+import kotlin.random.Random
+
+fun randDigit(): String {
+    return Random.nextInt(0, 9).toString()
+}
 
 class ActiveGameplaySessionModel(private val sequenceLength: Int): TModel<ActiveGameplaySessionModel>() {
     val length: Int = sequenceLength
@@ -14,6 +18,8 @@ class ActiveGameplaySessionModel(private val sequenceLength: Int): TModel<Active
         private set
     var isCorrect: Boolean? = null
         private set
+    var userGuess: String? = null
+        private set
 
     fun hideChar() {
         currentChar = null;
@@ -21,9 +27,10 @@ class ActiveGameplaySessionModel(private val sequenceLength: Int): TModel<Active
     }
 
     fun showChar(charIndex: Int) {
-        if (charIndex in 0..sequenceLength)
-        currentChar = sequence[charIndex]
-        notifyViews(this)
+        if (charIndex in 0..sequenceLength) {
+            currentChar = sequence[charIndex]
+            notifyViews(this)
+        }
     }
     fun generateString() {
         sequence = ""
@@ -41,6 +48,7 @@ class ActiveGameplaySessionModel(private val sequenceLength: Int): TModel<Active
     fun recordGuess(guess: String) {
         this.isCorrect = guess == sequence;
         this.gamePhase = "Result"
+        this.userGuess = guess
         notifyViews(this)
     }
 

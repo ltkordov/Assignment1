@@ -41,7 +41,7 @@ fun AppSetup(modifier: Modifier = Modifier) {
         routerView.update(routerModel)
     }
 
-    routerView.render(
+    routerView.Render(
         onGoHome = {
             routerController.navigateHome.execute()
         },

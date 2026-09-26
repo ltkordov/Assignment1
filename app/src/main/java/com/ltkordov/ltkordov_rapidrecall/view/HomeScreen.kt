@@ -40,7 +40,7 @@ fun HomeScreen(gameParamsModel: GameParametersModel, gameSetupController: GameSe
         Spacer(modifier = Modifier.height(32.dp))
         Text("Sequence Length:")
 
-        gameSetupView.render(
+        gameSetupView.Render(
             onIncrement = {
                 gameSetupController.increaseLength.execute()
             },
