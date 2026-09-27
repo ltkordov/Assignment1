@@ -8,24 +8,14 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.ltkordov.ltkordov_rapidrecall.controllers.GameSetupController
-import com.ltkordov.ltkordov_rapidrecall.models.GameParametersModel
+import com.ltkordov.ltkordov_rapidrecall.controllers.GameplayController
 
 @Composable
-fun HomeScreen(gameParamsModel: GameParametersModel, gameSetupController: GameSetupController, onStart: () -> Unit, onGoHistory: () -> Unit, modifier: Modifier = Modifier) {
-    val gameSetupView = remember { GameSetup() }
-    LaunchedEffect(Unit) {
-        gameParamsModel.addView(gameSetupView)
-        gameSetupView.update(gameParamsModel) // Manually update with the initial values
-    }
-
-
+fun HomeScreen(gameSetupView: GameSetup, gameplayController: GameplayController, onStart: () -> Unit, onGoHistory: () -> Unit, modifier: Modifier = Modifier) {
     Column(
         modifier = modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -42,10 +32,10 @@ fun HomeScreen(gameParamsModel: GameParametersModel, gameSetupController: GameSe
 
         gameSetupView.Render(
             onIncrement = {
-                gameSetupController.increaseLength.execute()
+                gameplayController.increaseLength.execute()
             },
             onDecrement = {
-                gameSetupController.decreaseLength.execute()
+                gameplayController.decreaseLength.execute()
             }
         )
 
