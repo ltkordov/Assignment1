@@ -20,8 +20,20 @@ class HistoryModel: TModel<HistoryModel>() {
     val entries: List<HistoryEntry>
         get() = mutableEntries.toList()
 
+    var numTries: Int = 0
+        private set
+    var numCorrect: Int = 0
+        private set
+    var numWrong: Int = 0
+        private set
+    var correctPercentage: Double = 0.0
+        private set
+
     fun addEntry(newEntry: HistoryEntry) {
         mutableEntries.add(newEntry)
+        numTries++
+        if (newEntry.correct) numCorrect++ else numWrong++
+        correctPercentage = numCorrect.toDouble() / numTries
         notifyViews(this)
     }
 }

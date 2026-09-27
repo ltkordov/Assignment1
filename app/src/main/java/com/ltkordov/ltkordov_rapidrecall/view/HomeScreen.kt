@@ -15,7 +15,7 @@ import androidx.compose.ui.unit.sp
 import com.ltkordov.ltkordov_rapidrecall.controllers.GameplayController
 
 @Composable
-fun HomeScreen(gameSetupView: GameSetup, gameplayController: GameplayController, onStart: () -> Unit, onGoHistory: () -> Unit, modifier: Modifier = Modifier) {
+fun HomeScreen(gameSetupView: GameSetup, gameplayController: GameplayController, onStart: () -> Unit, onGoHistory: () -> Unit, onGoSummary: () -> Unit, modifier: Modifier = Modifier) {
     Column(
         modifier = modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -45,6 +45,9 @@ fun HomeScreen(gameSetupView: GameSetup, gameplayController: GameplayController,
         }
         Button(onClick = { onGoHistory() }) {
             Text("View History")
+        }
+        Button(onClick = { onGoSummary() }) {
+            Text("View Summary")
         }
     }
 }

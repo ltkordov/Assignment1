@@ -16,6 +16,7 @@ class RootRouter(
     private val gameSetupView: GameSetup,
     private val gameplayScreen: GameplaySession,
     private val historyView: HistoryScreen,
+    private val summaryView: SummaryScreen,
     private val routerController: RouterController,
     private val gameplayController: GameplayController,
 ): TView<RouterModel> {
@@ -38,6 +39,7 @@ class RootRouter(
                 gameplayController,
                 { routerController.navigateToGameplay.execute(); coroutineScope.launch{ gameplayController.startSequence() }},
                 { routerController.navigateToHistory.execute() },
+                { routerController.navigateToSummary.execute() },
                 modifier
             )
         }
@@ -46,6 +48,9 @@ class RootRouter(
         }
         if (currentScreen == "History") {
             historyView.Render(onGoBack = {routerController.navigateHome.execute()}, modifier)
+        }
+        if (currentScreen == "Summary") {
+            summaryView.Render(onGoBack = {routerController.navigateHome.execute()}, modifier)
         }
     }
 }

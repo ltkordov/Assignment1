@@ -7,7 +7,7 @@ class RouterModel: TModel<RouterModel>() {
         private set
 
     fun setScreen(newScreen: String) {
-        if (newScreen == "Home" || newScreen == "Gameplay" || newScreen == "History") {
+        if (newScreen == "Home" || newScreen == "Gameplay" || newScreen == "History" || newScreen == "Summary") {
             screen = newScreen
             notifyViews(this)
         }

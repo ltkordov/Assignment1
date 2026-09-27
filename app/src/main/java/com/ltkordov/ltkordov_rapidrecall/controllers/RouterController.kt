@@ -16,4 +16,8 @@ class RouterController(
     val navigateToHistory = TCommand {
         model.setScreen("History")
     }
+
+    val navigateToSummary = TCommand {
+        model.setScreen("Summary")
+    }
 }

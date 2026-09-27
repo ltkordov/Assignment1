@@ -19,6 +19,7 @@ import com.ltkordov.ltkordov_rapidrecall.view.GameSetup
 import com.ltkordov.ltkordov_rapidrecall.view.GameplaySession
 import com.ltkordov.ltkordov_rapidrecall.view.HistoryScreen
 import com.ltkordov.ltkordov_rapidrecall.view.RootRouter
+import com.ltkordov.ltkordov_rapidrecall.view.SummaryScreen
 
 class MainActivity : ComponentActivity() {
     val routerModel = RouterModel()
@@ -32,8 +33,9 @@ class MainActivity : ComponentActivity() {
     val gameSetupView = GameSetup()
     val gameplaySessionView = GameplaySession()
     val historyScreenView = HistoryScreen()
+    val summaryScreenView = SummaryScreen()
 
-    val routerView = RootRouter(gameSetupView, gameplaySessionView, historyScreenView, routerController, gameplayController)
+    val routerView = RootRouter(gameSetupView, gameplaySessionView, historyScreenView, summaryScreenView, routerController, gameplayController)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,6 +48,8 @@ class MainActivity : ComponentActivity() {
         gameplaySessionView.update(activeGameplaySessionModel)
         historyModel.addView(historyScreenView)
         historyScreenView.update(historyModel)
+        historyModel.addView(summaryScreenView)
+        summaryScreenView.update(historyModel)
 
 
         enableEdgeToEdge()
