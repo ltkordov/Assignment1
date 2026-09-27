@@ -45,7 +45,7 @@ class RootRouter(
             gameplayScreen.Render(onGoBack = {routerController.navigateHome.execute()}, onSubmitGuess = {gameplayController.recordGuess(it)}, modifier)
         }
         if (currentScreen == "History") {
-            historyView.Render(onGoBack = {routerController.navigateToHistory.execute()}, modifier)
+            historyView.Render(onGoBack = {routerController.navigateHome.execute()}, modifier)
         }
     }
 }

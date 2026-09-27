@@ -33,31 +33,33 @@ class HistoryScreen: TView<HistoryModel> {
 
     @Composable
     fun Render(onGoBack: () -> Unit, modifier: Modifier = Modifier) {
-        LazyColumn(modifier = modifier.fillMaxSize().padding(16.dp)) {
-            items(entries) { entry ->
-                val formattedDate = entry.timestamp.toString()
+        Column(modifier = modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
+            Button(onClick = { onGoBack() }) {
+                Text("Go Back")
+            }
+            LazyColumn(modifier = Modifier.fillMaxSize().padding(16.dp)) {
+                items(entries) { entry ->
+                    val formattedDate = entry.timestamp.toString()
 
-                Column(
-                    modifier = Modifier.fillMaxWidth().padding(16.dp).border(
-                        width = 1.dp,
-                        color = Color.Black,
-                        shape = RoundedCornerShape(16.dp)
-                    ),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    Text(formattedDate)
-                    Text("Sequence: " + entry.sequence, fontSize = 24.sp)
-                    Text("Guess: " + entry.input, fontSize = 24.sp)
-                    Text(
-                        if (entry.correct) "Correct" else "Incorrect",
-                        fontSize = 32.sp,
-                        color = if (entry.correct) Color.Green else Color.Red
-                    )
+                    Column(
+                        modifier = Modifier.fillMaxWidth().padding(16.dp).border(
+                            width = 1.dp,
+                            color = Color.Black,
+                            shape = RoundedCornerShape(16.dp)
+                        ),
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        Text(formattedDate)
+                        Text("Sequence: " + entry.sequence, fontSize = 24.sp)
+                        Text("Guess: " + entry.input, fontSize = 24.sp)
+                        Text(
+                            if (entry.correct) "Correct" else "Incorrect",
+                            fontSize = 32.sp,
+                            color = if (entry.correct) Color.Green else Color.Red
+                        )
+                    }
                 }
             }
-        }
-        Button(onClick = { onGoBack() }) {
-            Text("Go Back")
         }
     }
 }
