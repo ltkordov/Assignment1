@@ -2,6 +2,7 @@ package com.ltkordov.ltkordov_rapidrecall.models
 
 import com.ltkordov.ltkordov_rapidrecall.`mvc-abstracts`.TModel
 
+//
 class GameParametersModel: TModel<GameParametersModel>() {
     var length: Int = 1
         private set

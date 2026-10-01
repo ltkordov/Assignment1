@@ -27,15 +27,17 @@ import com.ltkordov.ltkordov_rapidrecall.models.HistoryModel
 import com.ltkordov.ltkordov_rapidrecall.`mvc-abstracts`.TView
 import kotlin.math.roundToInt
 
+// This could arguably be a footer inside of HistoryScreen, but I just chose to make it separate
+// That being said, it still depends on HistoryModel, so it's a good example of two views on one model
 class SummaryScreen: TView<HistoryModel> {
-    var numAttempts by mutableIntStateOf(0)
-    var numCorrect by mutableIntStateOf(0)
-    var formattedCorrectPercentage by mutableStateOf("")
+    private var numAttempts by mutableIntStateOf(0)
+    private var numCorrect by mutableIntStateOf(0)
+    private var formattedCorrectPercentage by mutableStateOf("")
 
     override fun update(model: HistoryModel) {
         numAttempts = model.numTries
         numCorrect = model.numCorrect
-        formattedCorrectPercentage = "%.2f".format(model.correctPercentage * 100) // Going back to my CMPUT 175 python days for this one
+        formattedCorrectPercentage = "%.2f".format(model.correctPercentage * 100)
     }
 
 

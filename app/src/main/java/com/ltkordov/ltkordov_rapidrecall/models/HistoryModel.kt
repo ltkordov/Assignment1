@@ -3,6 +3,9 @@ package com.ltkordov.ltkordov_rapidrecall.models
 import com.ltkordov.ltkordov_rapidrecall.`mvc-abstracts`.TModel
 import java.util.Date
 
+// This could be thought of as its own class, but I chose to inline it here
+// I truly feel that HistoryEntry does not have state of its own, but is instead just an Object designed to be created and managed exclusively by other models and controllers
+// In a language like Typescript this would've just been `type HistoryEntry = { ... }`
 data class HistoryEntry (
     val sequenceLength: Int,
     val input: String,

@@ -24,7 +24,10 @@ import com.ltkordov.ltkordov_rapidrecall.models.HistoryModel
 import com.ltkordov.ltkordov_rapidrecall.`mvc-abstracts`.TView
 
 class HistoryScreen: TView<HistoryModel> {
-    var entries by mutableStateOf<List<HistoryEntry>>(emptyList())
+    private var entries by mutableStateOf<List<HistoryEntry>>(emptyList())
+    // Originally I had problems where my entries was defined as a mutableStateListOf and I tried to use the update fun to add entries to the end or pop them
+    // But this ended up being very complex, and the View's are not supposed to be complex
+    // So my solution instead was to store a mutableStateOf a copy of the list, and then update just replaces the whole list as though it were any other piece of data
 
     override fun update(model: HistoryModel) {
         entries = model.entries
@@ -50,6 +53,7 @@ class HistoryScreen: TView<HistoryModel> {
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         Text(formattedDate)
+                        Text("Length: " + entry.sequenceLength, fontSize = 24.sp)
                         Text("Sequence: " + entry.sequence, fontSize = 24.sp)
                         Text("Guess: " + entry.input, fontSize = 24.sp)
                         Text(

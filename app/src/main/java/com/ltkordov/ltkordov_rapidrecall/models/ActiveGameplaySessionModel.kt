@@ -4,9 +4,12 @@ import com.ltkordov.ltkordov_rapidrecall.`mvc-abstracts`.TModel
 import kotlin.random.Random
 
 fun randDigit(): String {
-    return Random.nextInt(0, 10).toString()
+    return Random.nextInt(0, 10).toString() // The top bound is not inclusive, so 0-10 actually produces digits from 0-9
 }
 
+// I wrestled in my head with "should the timer logic be on the controller or on the model"
+// And I ended up deciding it should be in the controller, because the model only cares about the available things on it that can be set
+// It could be compelled to change those in any way
 class ActiveGameplaySessionModel(): TModel<ActiveGameplaySessionModel>() {
     var length: Int = 0
         private set
@@ -33,6 +36,10 @@ class ActiveGameplaySessionModel(): TModel<ActiveGameplaySessionModel>() {
             notifyViews(this)
         }
     }
+
+    // Originally, I instantiated a new model for each run of the gameplay
+    // But eventually, I switched this to be one top-level model with reset logic in it
+    // Everytime you call setupRound it resets the state back to default and gets ready to start the sequence of showChar
     fun setupRound(sequenceLength: Int) {
         length = sequenceLength
         sequence = ""

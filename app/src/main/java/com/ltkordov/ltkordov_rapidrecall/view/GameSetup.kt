@@ -17,13 +17,9 @@ import com.ltkordov.ltkordov_rapidrecall.models.GameParametersModel
 import com.ltkordov.ltkordov_rapidrecall.`mvc-abstracts`.TView
 
 class GameSetup: TView<GameParametersModel> {
-    var displayedCurrentLength by mutableIntStateOf(1) // `remember` does basically "don't change this on rerender" but since this class only ever gets invoked once, it doens't need remember
-        private set
-
-    var canIncrement: Boolean by mutableStateOf(false)
-        private set
-    var canDecrement: Boolean by mutableStateOf(false)
-        private set
+    private var displayedCurrentLength by mutableIntStateOf(1) // `remember` does basically "don't change this on rerender" but since this class only ever gets invoked once, it doens't need remember
+    private var canIncrement: Boolean by mutableStateOf(false)
+    private var canDecrement: Boolean by mutableStateOf(false)
 
     override fun update(model: GameParametersModel) {
         displayedCurrentLength = model.length
@@ -38,6 +34,7 @@ class GameSetup: TView<GameParametersModel> {
             horizontalArrangement = Arrangement.spacedBy(10.dp)
         ) {
             Button(
+                // For this, I wasn't sure if enabled=false actually stopeped onClick events from being fired, so I add an if statement check inside the handler just to be safe
                 enabled = canDecrement,
                 onClick = {
                     if (canDecrement) {

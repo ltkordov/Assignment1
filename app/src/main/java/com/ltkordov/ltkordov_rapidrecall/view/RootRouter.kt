@@ -12,6 +12,9 @@ import com.ltkordov.ltkordov_rapidrecall.models.RouterModel
 import com.ltkordov.ltkordov_rapidrecall.`mvc-abstracts`.TView
 import kotlinx.coroutines.launch
 
+// Since this is a very simple app, I decided to not create activities for each of these screens and to instead 'route' between them just using if statements
+// It made the code a lot less complex.
+// Since all the views were registered in MainActivity, they have to be passed in here so that they can be rendered where they need to be.
 class RootRouter(
     private val gameSetupView: GameSetup,
     private val gameplayScreen: GameplaySession,
@@ -20,8 +23,7 @@ class RootRouter(
     private val routerController: RouterController,
     private val gameplayController: GameplayController,
 ): TView<RouterModel> {
-    var currentScreen by mutableStateOf("Home")
-        private set
+    private var currentScreen by mutableStateOf("Home")
 
     override fun update(model: RouterModel) {
         currentScreen = model.screen
@@ -30,7 +32,7 @@ class RootRouter(
     @Composable
     fun Render(modifier: Modifier = Modifier) {
         // my gameplayController.startSequence function is "suspend" (async), and so I was getting error messages that I need to put it in a coroutine scope
-        // This is the solution that works
+        // This is the solution that works for that
         val coroutineScope = rememberCoroutineScope()
 
         if (currentScreen == "Home") {

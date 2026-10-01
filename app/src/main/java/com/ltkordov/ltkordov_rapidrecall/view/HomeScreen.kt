@@ -8,12 +8,16 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.ltkordov.ltkordov_rapidrecall.controllers.GameplayController
 
+// This is the only composable UI function in the app that ISN'T in a view
+// But I did that because this is all just either static information, styling, or calling other views that are passed in
+// Nothing in this function itself rerenders on state changes, and so I just made it a function.
 @Composable
 fun HomeScreen(gameSetupView: GameSetup, gameplayController: GameplayController, onStart: () -> Unit, onGoHistory: () -> Unit, onGoSummary: () -> Unit, modifier: Modifier = Modifier) {
     Column(

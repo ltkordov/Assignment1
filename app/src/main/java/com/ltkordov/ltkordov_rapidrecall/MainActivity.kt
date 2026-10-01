@@ -21,21 +21,26 @@ import com.ltkordov.ltkordov_rapidrecall.view.HistoryScreen
 import com.ltkordov.ltkordov_rapidrecall.view.RootRouter
 import com.ltkordov.ltkordov_rapidrecall.view.SummaryScreen
 
+// I asked in class about the best way to handle UI that is 'scoped', as in it technically describes something that comes and goes
+// What Prof. Campbell told me was that I should declare just one copy of each of my models so that I'm not creating and destroying things in the lifecycle of the app
+// In order to do that, what I did was I initialize all of my models, controllers, etc right here in the root of the project
+// And then I just pass things down as needed.
+// This functions as the 'entrypoint' of the app, it doesn't rerender on any state changes itself, it just orchestrates all of the models, controllers, and views
 class MainActivity : ComponentActivity() {
-    val routerModel = RouterModel()
-    val historyModel = HistoryModel()
-    val gameParametersModel = GameParametersModel()
-    val activeGameplaySessionModel = ActiveGameplaySessionModel()
+    private val routerModel = RouterModel()
+    private val historyModel = HistoryModel()
+    private val gameParametersModel = GameParametersModel()
+    private val activeGameplaySessionModel = ActiveGameplaySessionModel()
 
-    val routerController = RouterController(routerModel)
-    val gameplayController = GameplayController(activeGameplaySessionModel, historyModel, gameParametersModel)
+    private val routerController = RouterController(routerModel)
+    private val gameplayController = GameplayController(activeGameplaySessionModel, historyModel, gameParametersModel)
 
-    val gameSetupView = GameSetup()
-    val gameplaySessionView = GameplaySession()
-    val historyScreenView = HistoryScreen()
-    val summaryScreenView = SummaryScreen()
+    private val gameSetupView = GameSetup()
+    private val gameplaySessionView = GameplaySession()
+    private val historyScreenView = HistoryScreen()
+    private val summaryScreenView = SummaryScreen()
 
-    val routerView = RootRouter(gameSetupView, gameplaySessionView, historyScreenView, summaryScreenView, routerController, gameplayController)
+    private val routerView = RootRouter(gameSetupView, gameplaySessionView, historyScreenView, summaryScreenView, routerController, gameplayController)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

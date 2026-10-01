@@ -20,18 +20,15 @@ import androidx.compose.ui.unit.sp
 import com.ltkordov.ltkordov_rapidrecall.models.ActiveGameplaySessionModel
 import com.ltkordov.ltkordov_rapidrecall.`mvc-abstracts`.TView
 
+// This class handles the screen display of a gameplay run. Including the display of digits one by one, the guessing portion, and the results display.
+// It operates under the assumption that gamePhase and currentChar will be changed in time by the model, as such, it has no timing logic itself
+// This drastically simplifies our view.
 class GameplaySession: TView<ActiveGameplaySessionModel> {
-    var gamePhase by mutableStateOf("")
-        private set
-    var currentChar by mutableStateOf<Char?>(null)
-        private set
-    var isCorrect by mutableStateOf<Boolean?>(null)
-        private set
-    var guess by mutableStateOf<String?>(null)
-        private set
-    var sequence by mutableStateOf<String?>(null)
-        private set
-
+    private var gamePhase by mutableStateOf("")
+    private var currentChar by mutableStateOf<Char?>(null)
+    private var isCorrect by mutableStateOf<Boolean?>(null)
+    private var guess by mutableStateOf<String?>(null)
+    private var sequence by mutableStateOf<String?>(null)
     override fun update(model: ActiveGameplaySessionModel) {
         gamePhase = model.gamePhase
         currentChar = model.currentChar
